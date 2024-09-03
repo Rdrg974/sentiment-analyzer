@@ -445,7 +445,7 @@ classifiers = {
     "RandomForestClassifier": RandomForestClassifier(),
     "LogisticRegression": LogisticRegression(),
     "MLPClassifier": MLPClassifier(max_iter=1000),
-    "AdaBoostClassifier": AdaBoostClassifier(),
+    "AdaBoostClassifier": AdaBoostClassifier(algorithm='SAMME'),
 }
 ```
 
