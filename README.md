@@ -4,7 +4,6 @@
 
 SentimentAnalyzer est un projet Python qui utilise le machine learning pour analyser les sentiments des textes. Ce projet permet de classer des textes en fonction de leur polarité (positif, négatif ou neutre) à l'aide de techniques de traitement du langage naturel (NLP). Cela peut se faire en analysant des ensembles de textes, tels que des commentaires, tweets, et avis de produits, afin d'obtenir des insights sur votre audience.
 
-
 ## Fonctionnalité with NLTK
 
 La bibliothèque NLTK offre divers outils pour manipuler et analyser efficacement les données linguistiques. Parmi ses fonctionnalités avancées se trouvent des classificateurs de texte, utilisables pour différents types de classification, y compris l'analyse de sentiment.
@@ -15,18 +14,23 @@ L'analyse de sentiment consiste à utiliser des algorithmes pour classer des éc
 
 * Pour commencer à utiliser NLTK (Natural Language Toolkit), installe le module avec pip :
 
+```python
 python3 -m pip install nltk
+```
 
 * Téléchargement des Ressources NLTK
 
 Après l'installation de NLTK, tu dois télécharger des ressources supplémentaires nécessaires pour le traitement du langage naturel. Voici comment procéder :
 
+```python
 import nltk
 nltk.download()
+```
 
 Cela ouvre une interface graphique te permettant de choisir et télécharger les ressources nécessaires.
 Téléchargement direct : Tu peux également télécharger directement les ressources spécifiques en utilisant les identifiants suivants :
 
+```python
 import nltk
 nltk.download([
     "names",
@@ -38,25 +42,28 @@ nltk.download([
     "vader_lexicon",
     "punkt",
 ])
+```
 
 * Gestion des Ressources Manquantes
 
 Si tu essaies d'utiliser une ressource qui n'a pas encore été téléchargée, NLTK affichera une LookupError avec des instructions pour télécharger la ressource manquante. Par exemple :
 
+```python
 import nltk
 w = nltk.corpus.shakespeare.words()
+```
 
 * Si la ressource "shakespeare" n'est pas trouvée, tu verras une erreur comme :
 
+```python
 LookupError:
-**********************************************************************
   Resource shakespeare not found.
   Please use the NLTK Downloader to obtain the resource:
-  >>> import nltk
-  >>> nltk.download('shakespeare')
-**********************************************************************
+    import nltk
+    nltk.download('shakespeare')
+```
 
-Suis les instructions fournies pour télécharger la ressource en utilisant nltk.download('shakespeare').
+Suis les instructions fournies pour télécharger la ressource en utilisant ```nltk.download('shakespeare')```.
 
 ## Compilation des Données avec NLTK
 
@@ -64,22 +71,28 @@ Suis les instructions fournies pour télécharger la ressource en utilisant nltk
 
 * Charger les mots : Utilise nltk.corpus.state_union.words() et filtre pour ne garder que les mots alphabétiques :
 
+```python
 words = [w for w in nltk.corpus.state_union.words() if w.isalpha()]
+```
 
 * Retirer les stop words : Exclue les mots courants (stop words) avec :
 
+```python
 stopwords = nltk.corpus.stopwords.words("english")
 words = [w for w in words if w.lower() not in stopwords]
+```
 
 ### Créer un Corpus et Tokeniser
 
 * Créer un corpus : Charge du texte brut ou utilise des annotations pour créer ton propre corpus.
 * Tokeniser le texte : Divise le texte en mots avec nltk.word_tokenize() et filtre la ponctuation :
 
+```python
 from pprint import pprint
 text = """For some quick analysis, creating a corpus could be overkill. If all you need is a word list,there are simpler ways to achieve that goal."""
 words = [w for w in nltk.word_tokenize(text) if w.isalpha()]
 pprint(words)
+```
 
 Ces étapes permettent de préparer des données textuelles pour une analyse efficace.
 
@@ -89,33 +102,44 @@ Une distribution de fréquence est essentiellement un tableau ou un résumé qui
 
 ### Créer une Distribution de Fréquence
 
-Tokeniser le texte : Divise le texte en mots.
+* Tokeniser le texte : Divise le texte en mots.
 
+```python
 words = nltk.word_tokenize(text)
+```
 
-Construire la distribution : Utilise nltk.FreqDist() pour créer une distribution des fréquences des mots.
+* Construire la distribution : Utilise nltk.FreqDist() pour créer une distribution des fréquences des mots.
 
+```python
 fd = nltk.FreqDist(words)
+```
 
 * Utiliser les Méthodes
 
 .most_common(n) : Affiche les n mots les plus fréquents.
 
+```python
 fd.most_common(3)
+```
 
 .tabulate(n) : Affiche les n mots les plus fréquents dans un format tabulaire.
 
+```python
 fd.tabulate(3)
-
+```
 * Analyse Personnalisée
 
 Requête de mots : Compte les occurrences exactes des mots, en tenant compte de la casse.
 
+```python
 fd["America"]
+```
 
-Normalisation : Crée une distribution basée sur des mots en minuscules pour une analyse plus précise.
+* Normalisation : Crée une distribution basée sur des mots en minuscules pour une analyse plus précise.
 
+```python
 lower_fd = nltk.FreqDist([w.lower() for w in words])
+```
 
 ## Extraction de Concordances et de Collocations avec NLTK
 
@@ -123,21 +147,27 @@ lower_fd = nltk.FreqDist([w.lower() for w in words])
 
 Une concordance est une collection d'occurrences d'un mot avec le contexte environnant. Elle permet de voir :
 
-Combien de fois un mot apparaît.
-Où chaque occurrence se trouve dans le texte.
-Quels mots entourent chaque occurrence.
+> - Combien de fois un mot apparaît.<br>
+> - Où chaque occurrence se trouve dans le texte.<br>
+> - Quels mots entourent chaque occurrence.
 
-Créer une instance nltk.Text avec une liste de mots :
+Créer une instance ```nltk.Text``` avec une liste de mots :
 
+```python
 text = nltk.Text(nltk.corpus.state_union.words())
+```
 
 Extraire des concordances avec .concordance() pour voir les occurrences d'un mot avec contexte :
 
+```python
 text.concordance("america", lines=5)
+```
 
 Obtenir une liste détaillée des concordances avec .concordance_list() :
 
+```python
 concordance_list = text.concordance_list("america", lines=2)
+```
 
 ### Collocations
 
@@ -145,20 +175,24 @@ Les collocations sont des combinaisons de mots qui apparaissent fréquemment ens
 
 Trouver des collocations (combinaisons fréquentes de mots) avec CollocationFinder :
 
+```python
 finder = nltk.collocations.TrigramCollocationFinder.from_words(words)
+```
 
 Afficher les collocations les plus fréquentes :
 
+```python
 finder.ngram_fd.most_common(2)
 finder.ngram_fd.tabulate(2)
+```
 
 Ces outils permettent d'explorer les occurrences et combinaisons de mots dans un texte de manière approfondie.
 
 ## Difference entre nltk.FreqDist et nltk.Text:
 
-nltk.FreqDist et nltk.Text sont des outils complémentaires dans NLTK. nltk.FreqDist est utilisé pour analyser la fréquence des mots dans un texte, offrant des méthodes pour afficher les mots les plus fréquents, créer des graphiques de distribution, et calculer les fréquences relatives. C'est idéal pour des analyses statistiques simples.
+```nltk.FreqDist``` et ```nltk.Text``` sont des outils complémentaires dans NLTK. ```nltk.FreqDist``` est utilisé pour analyser la fréquence des mots dans un texte, offrant des méthodes pour afficher les mots les plus fréquents, créer des graphiques de distribution, et calculer les fréquences relatives. C'est idéal pour des analyses statistiques simples.
 
-nltk.Text, en revanche, est conçu pour des analyses contextuelles. Il permet de rechercher des occurrences de mots avec leur contexte, de découvrir des collocations (mots souvent associés), et de créer une distribution de fréquence simplifiée. Utilise nltk.FreqDist pour des statistiques de fréquence et nltk.Text pour explorer le contexte et les associations de mots.
+```nltk.Text```, en revanche, est conçu pour des analyses contextuelles. Il permet de rechercher des occurrences de mots avec leur contexte, de découvrir des collocations (mots souvent associés), et de créer une distribution de fréquence simplifiée. Utilise ```nltk.FreqDist``` pour des statistiques de fréquence et ```nltk.Text``` pour explorer le contexte et les associations de mots.
 
 ## Analyse de Sentiments avec VADER
 
@@ -168,11 +202,14 @@ NLTK inclut VADER (Valence Aware Dictionary and sEntiment Reasoner), un analyseu
 
 Initialisation :
 
+```python
 from nltk.sentiment import SentimentIntensityAnalyzer
 sia = SentimentIntensityAnalyzer()
+```
 
 Analyse de Texte :
 
+```python
 scores = sia.polarity_scores("Texte à analyser")
 
 Scores :
@@ -180,29 +217,38 @@ neg : Sentiment négatif
 neu : Sentiment neutre
 pos : Sentiment positif
 compound : Score composite global, de -1 à 1
+```
 
 Analyse de Tweets :
 
+```python
 tweets = [t.replace("://", "//") for t in nltk.corpus.twitter_samples.strings()]
+```
 
 Classification :
 
+```python
 def is_positive(tweet: str) -> bool:
     return sia.polarity_scores(tweet)["compound"] > 0
+```
 
 * Analyse de Critiques de Films :
 
 Charger les critiques :
 
+```python
 positive_review_ids = nltk.corpus.movie_reviews.fileids(categories=["pos"])
 negative_review_ids = nltk.corpus.movie_reviews.fileids(categories=["neg"])
+```
 
 Classifier les critiques :
 
+```python
 def is_positive(review_id: str) -> bool:
     text = nltk.corpus.movie_reviews.raw(review_id)
     scores = [sia.polarity_scores(sentence)["compound"] for sentence in nltk.sent_tokenize(text)]
     return mean(scores) > 0
+```
 
 Précision : VADER a montré une précision de 64% sur les critiques de films.
 
@@ -220,8 +266,9 @@ Pour améliorer l'analyse des sentiments avec NLTK, il est crucial de sélection
 
 * Préparation des Données :
 
-Exclusion des Mots Non Souhaités : Créez une liste de mots à exclure, incluant les mots très courants (stopwords) et les noms propres (ex. noms d'acteurs). Utilisez la fonction skip_unwanted() pour filtrer ces mots en excluant également les noms (balises grammaticales commençant par "NN").
+Exclusion des Mots Non Souhaités : Créez une liste de mots à exclure, incluant les mots très courants (stopwords) et les noms propres (ex. noms d'acteurs). Utilisez la fonction ```skip_unwanted()``` pour filtrer ces mots en excluant également les noms (balises grammaticales commençant par "NN").
 
+```python
 unwanted = nltk.corpus.stopwords.words("english")
 unwanted.extend([w.lower() for w in nltk.corpus.names.words()])
 
@@ -232,11 +279,13 @@ def skip_unwanted(pos_tuple):
     if tag.startswith("NN"):
         return False
     return True
+```
 
 * Création des Listes de Mots Positifs et Négatifs :
 
-Extraction des Mots : Utilisez nltk.pos_tag() pour taguer les mots par partie du discours et filtrez-les selon les critères définis pour obtenir des listes de mots significatifs pour les critiques positives et négatives.
+Extraction des Mots : Utilisez ```nltk.pos_tag()``` pour taguer les mots par partie du discours et filtrez-les selon les critères définis pour obtenir des listes de mots significatifs pour les critiques positives et négatives.
 
+```python
 positive_words = [word for word, tag in filter(
     skip_unwanted,
     nltk.pos_tag(nltk.corpus.movie_reviews.words(categories=["pos"]))
@@ -246,11 +295,12 @@ negative_words = [word for word, tag in filter(
     skip_unwanted,
     nltk.pos_tag(nltk.corpus.movie_reviews.words(categories=["neg"]))
 )]
-
+```
 * Analyse des Fréquences :
 
 Distribution des Fréquences : Créez des objets FreqDist pour les mots positifs et négatifs. Identifiez et supprimez les mots communs aux deux listes pour éviter les biais, puis sélectionnez les mots les plus fréquents pour chaque catégorie.
 
+```python
 positive_fd = nltk.FreqDist(positive_words)
 negative_fd = nltk.FreqDist(negative_words)
 
@@ -261,11 +311,12 @@ for word in common_set:
 
 top_100_positive = {word for word, count in positive_fd.most_common(100)}
 top_100_negative = {word for word, count in negative_fd.most_common(100)}
-
+```
 * Amélioration avec les Bigrammes :
 
 Utilisation des Bigrammes : Identifiez les combinaisons fréquentes de mots (bigrams) dans les critiques positives et négatives pour capturer des phrases significatives, telles que les expressions courantes dans chaque catégorie.
 
+```python
 positive_bigram_finder = nltk.collocations.BigramCollocationFinder.from_words([
     w for w in nltk.corpus.movie_reviews.words(categories=["pos"])
     if w.isalpha() and w not in unwanted
@@ -275,6 +326,7 @@ negative_bigram_finder = nltk.collocations.BigramCollocationFinder.from_words([
     w for w in nltk.corpus.movie_reviews.words(categories=["neg"])
     if w.isalpha() and w not in unwanted
 ])
+```
 
 En expérimentant avec ces méthodes et en ajustant les caractéristiques sélectionnées, vous pouvez affiner les résultats de votre analyse des sentiments et obtenir des insights plus précis.
 
@@ -284,8 +336,9 @@ Pour créer un classificateur de sentiments, suivez ces étapes :
 
 1. Définir une Fonction d'Extraction des Caractéristiques
 
-La première étape consiste à créer une fonction qui extrait des caractéristiques pertinentes d'un texte. Voici un exemple de fonction extract_features(text) qui calcule la moyenne des scores composés et positifs de VADER pour chaque phrase et compte le nombre de mots présents dans une liste de mots positifs courants :
+La première étape consiste à créer une fonction qui extrait des caractéristiques pertinentes d'un texte. Voici un exemple de fonction ```extract_features(text)``` qui calcule la moyenne des scores composés et positifs de VADER pour chaque phrase et compte le nombre de mots présents dans une liste de mots positifs courants :
 
+```python
 def extract_features(text):
     features = dict()
     wordcount = 0
@@ -304,17 +357,19 @@ def extract_features(text):
     features["wordcount"] = wordcount
 
     return features
+```
 
 Cette fonction renvoie un dictionnaire avec trois caractéristiques :
 
-* mean_compound: La moyenne des scores composés des phrases, augmentée de 1 pour éviter les valeurs négatives.
-* mean_positive: La moyenne des scores positifs des phrases.
-* wordcount: Le nombre de mots du texte qui apparaissent dans la liste des 100 mots les plus fréquents des critiques positives.
+> - mean_compound: La moyenne des scores composés des phrases, augmentée de 1 pour éviter les valeurs négatives.
+> - mean_positive: La moyenne des scores positifs des phrases.
+> - wordcount: Le nombre de mots du texte qui apparaissent dans la liste des 100 mots les plus fréquents des critiques positives.
 
 2. Préparer les Données d'Entraînement
 
 Construisez une liste de tuples où chaque tuple contient les caractéristiques extraites d'une critique et sa catégorie ("pos" pour positif, "neg" pour négatif). Voici comment préparer cette liste à partir du corpus movie_reviews de NLTK :
 
+```python
 features = [
     (extract_features(nltk.corpus.movie_reviews.raw(review)), "pos")
     for review in nltk.corpus.movie_reviews.fileids(categories=["pos"])
@@ -323,40 +378,48 @@ features.extend([
     (extract_features(nltk.corpus.movie_reviews.raw(review)), "neg")
     for review in nltk.corpus.movie_reviews.fileids(categories=["neg"])
 ])
+```
 
-Cette liste est ensuite divisée en deux ensembles : un pour l'entraînement et un pour l'évaluation. Utilisez la méthode .train() pour entraîner un classificateur Naive Bayes :
+Cette liste est ensuite divisée en deux ensembles : un pour l'entraînement et un pour l'évaluation. Utilisez la méthode ```.train()``` pour entraîner un classificateur Naive Bayes :
 
+```python
 train_count = len(features) // 4
 shuffle(features)
 classifier = nltk.NaiveBayesClassifier.train(features[:train_count])
+```
 
 3. Évaluer et Utiliser le Classificateur
 
 Après l'entraînement, évaluez la performance du classificateur sur l'ensemble de test et affichez les caractéristiques les plus informatives :
 
+```python
 accuracy = nltk.classify.accuracy(classifier, features[train_count:])
 print(f"Accuracy: {accuracy:.2%}")
 classifier.show_most_informative_features(10)
+```
 
-Vous pouvez utiliser le classificateur pour prédire la catégorie de nouvelles critiques en passant les caractéristiques extraites de ces critiques à classifier.classify(). Ajustez les caractéristiques pour améliorer la précision du modèle, en explorant différentes combinaisons et en affinant votre extraction de caractéristiques.
+Vous pouvez utiliser le classificateur pour prédire la catégorie de nouvelles critiques en passant les caractéristiques extraites de ces critiques à ```classifier.classify()```. Ajustez les caractéristiques pour améliorer la précision du modèle, en explorant différentes combinaisons et en affinant votre extraction de caractéristiques.
 
 En utilisant cette approche, vous pouvez créer un classificateur de sentiments qui apprend à partir de données préexistantes et peut être utilisé pour analyser de nouveaux textes avec une précision améliorée.
 
 ### Comparaison des Classificateurs Supplémentaires avec NLTK et scikit-learn
 
-NLTK permet d'intégrer des classificateurs du framework scikit-learn, offrant une variété de modèles de machine learning pour l'analyse de sentiments. Après avoir installé scikit-learn via pip ($ python3 -m pip install scikit-learn), vous pouvez importer divers classificateurs, tels que :
+NLTK permet d'intégrer des classificateurs du framework scikit-learn, offrant une variété de modèles de machine learning pour l'analyse de sentiments. Après avoir installé scikit-learn via pip ```($ python3 -m pip install scikit-learn)```, vous pouvez importer divers classificateurs, tels que :
 
-Naive Bayes : BernoulliNB, ComplementNB, MultinomialNB
-K-Nearest Neighbors : KNeighborsClassifier
-Arbres de Décision : DecisionTreeClassifier
-Forêts Aléatoires : RandomForestClassifier
-Régression Logistique : LogisticRegression
-Réseaux de Neurones : MLPClassifier
-Boosting : AdaBoostClassifier
-Analyse Discriminante : QuadraticDiscriminantAnalysis
+
+> - Naive Bayes : BernoulliNB, ComplementNB, MultinomialNB
+> - K-Nearest Neighbors : KNeighborsClassifier
+> - Arbres de Décision : DecisionTreeClassifier
+> - Forêts Aléatoires : RandomForestClassifier
+> - Régression Logistique : LogisticRegression
+> - Réseaux de Neurones : MLPClassifier
+> - Boosting : AdaBoostClassifier
+> - Analyse Discriminante : QuadraticDiscriminantAnalysis
+
 
 Une fois installé, vous pouvez importer divers classificateurs de scikit-learn dans votre code Python. Voici quelques-uns des classificateurs disponibles :
 
+```python
 from sklearn.naive_bayes import (
     BernoulliNB,
     ComplementNB,
@@ -368,9 +431,11 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+```
 
 Créez des instances de ces classificateurs avec leurs paramètres par défaut, ce qui simplifie l'évaluation comparative. Utilisez un dictionnaire pour gérer ces instances :
 
+```python
 classifiers = {
     "BernoulliNB": BernoulliNB(),
     "ComplementNB": ComplementNB(),
@@ -382,6 +447,7 @@ classifiers = {
     "MLPClassifier": MLPClassifier(max_iter=1000),
     "AdaBoostClassifier": AdaBoostClassifier(),
 }
+```
 
 Ces classificateurs peuvent être entraînés et évalués sur vos données pour déterminer lequel offre les meilleures performances pour votre tâche d'analyse de sentiments. Vous pouvez ainsi comparer leur précision et choisir le modèle le plus adapté à vos besoins.
 
