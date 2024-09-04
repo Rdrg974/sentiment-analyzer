@@ -93,7 +93,7 @@ print(f"Accuracy: {accuracy:.2%}")
 classifier.show_most_informative_features(10)
 
 # Tester sur une nouvelle critique
-new_review = "I absolutely loved this movie. The plot was fantastic and the acting was great."
+new_review = "I loved this movie. The plot was fantastic and the acting was great."
 print("New review classification:", classifier.classify(extract_features(new_review)))
 
 # Création des classificateurs scikit-learn
