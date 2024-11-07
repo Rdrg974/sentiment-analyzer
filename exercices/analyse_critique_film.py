@@ -21,7 +21,7 @@ def get_reviews(url, start):
         return []
 
 # URL du film sur IMDb (remplace avec l'URL du film que tu veux analyser, ici c'est Inception)
-base_url = 'https://www.imdb.com/title/tt1375666/reviews?ref_=tt_ql_3'
+base_url = 'https://www.imdb.com/title/tt6718170/reviews/?ref_=tt_ov_ql_2'
 
 # Nombre de pages à analyser
 num_pages = 2  # Ajuste ce nombre selon tes besoins

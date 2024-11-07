@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats pour {{ title }}</title>
+</head>
+<body>
+    <h1>Résultats de la Recherche pour "{{ title }}"</h1>
+    {% if movies %}
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    <h2>{{ movie.title }} ({{ movie.release_date[:4] }})</h2>
+                    <p>{{ movie.overview }}</p>
+                    <form action="/analyze" method="POST">
+                        <input type="hidden" name="movie_id" value="{{ movie.id }}">
+                        <button type="submit">Analyser les Sentiments</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun film trouvé.</p>
+    {% endif %}
+
+    <button onclick="window.history.back()">Retour</button>
+</body>
+</html>

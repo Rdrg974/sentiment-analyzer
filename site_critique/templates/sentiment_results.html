@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats d'Analyse de Sentiment</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Analyse de Sentiments</h1>
+    <p>Critiques positives : {{ positive_count }}</p>
+    <p>Critiques neutres : {{ neutral_count }}</p>
+    <p>Critiques négatives : {{ negative_count }}</p>
+
+    <h2>Détails des Critiques</h2>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <p>{{ review.review }}</p>
+                <p>Score de sentiment : {{ review.compound }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Conteneur pour le graphique -->
+    <h2>Répartition des Sentiments</h2>
+    <canvas id="sentimentChart" width="150" height="50"></canvas>
+
+    <button onclick="window.history.back()">Retour</button>
+
+    <!-- Script pour le graphique -->
+    <script>
+        var ctx = document.getElementById('sentimentChart').getContext('2d');
+        var sentimentChart = new Chart(ctx, {
+            type: 'bar',  // Type de graphique : bar
+            data: {
+                labels: ['Positif', 'Neutre', 'Négatif'],
+                datasets: [{
+                    label: 'Analyse des Sentiments',
+                    data: [{{ positive_count }}, {{ neutral_count }}, {{ negative_count }}],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)', // Couleur pour positif
+                        'rgba(255, 206, 86, 0.2)', // Couleur pour neutre
+                        'rgba(255, 99, 132, 0.2)'  // Couleur pour négatif
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
